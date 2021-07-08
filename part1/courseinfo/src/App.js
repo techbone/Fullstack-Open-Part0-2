@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from './Header'
 import Contents from './Contents'
-import Footer   from './Footer'
+import Footer   from './Total'
 
 const App = () => {
   const course = 'Half Stack application development'
@@ -15,8 +15,13 @@ const App = () => {
   return (
     <div>
       <Header name={course}/>
-      <Contents part1={part1} part2={part2} part3={part3}/>
-       <Footer   exercises1={exercises1} exercises2={exercises2} exercises3={exercises3} />
+      <Contents
+        part1={part1} exercises1={exercises1}
+        part2={part2} exercises2={exercises2}
+        part3={part3} exercises3={exercises3}
+      />
+      <Footer
+        exercises1={exercises1} exercises2={exercises2} exercises3={exercises3} />
     </div>
   )
 }
