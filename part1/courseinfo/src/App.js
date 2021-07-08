@@ -16,9 +16,9 @@ const App = () => {
     <div>
       <Header name={course}/>
       <Contents
-        part1={part1} exercises1={exercises1}
-        part2={part2} exercises2={exercises2}
-        part3={part3} exercises3={exercises3}
+        name1={part1} firstExercise={exercises1}
+        name2={part2} secondExercise={exercises2}
+        name3={part3} thirdExercise={exercises3}
       />
       <Footer
         exercises1={exercises1} exercises2={exercises2} exercises3={exercises3} />

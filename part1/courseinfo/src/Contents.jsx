@@ -1,16 +1,19 @@
+const Part = (props) =>{
+  return(
+    <p>
+     {props.contents} {props.newest}
+    </p >
+  )
+}
+
 const Contents = (props) => {
   return (
     <>
-       <p>
-        {props.part1} {props.exercises1}
-      </p>
-      <p>
-        {props.part2} {props.exercises2}
-      </p>
-      <p>
-        {props.part3} {props.exercises3}
-      </p>
-    </>
+      <Part contents={props.name1} newest={props.firstExercise} />
+      <Part contents={props.name2} newest={props.secondExercise} />
+      <Part contents={props.name3} newest={props.thirdExercise} />
+      
+      </>
   )
 }
 
