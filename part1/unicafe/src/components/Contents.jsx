@@ -1,4 +1,7 @@
-const Contents = ({ name, count }) => <p>{name} {count}</p>
+const Contents = ({ name, count }) => (
+  <p>
+    {name} {count}
+  </p>
+);
 
-
-export default Contents
+export default Contents;
