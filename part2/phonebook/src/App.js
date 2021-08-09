@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Filter from "./components/Filter.jsx";
+import axios from "axios";
 const PhoneBook = () => {
   const [persons, setPersons] = useState([
     { name: "Arto Hellas", num: "040-123456" },
@@ -11,7 +12,6 @@ const PhoneBook = () => {
   const [number, setNumber] = useState("");
   const [searchBy, setSearchBy] = useState("");
   const handleChange = (e) => {
-    console.log(e.target.value);
     setSearchBy(e.target.value);
   };
   const handleSubmit = (e) => {
@@ -26,7 +26,13 @@ const PhoneBook = () => {
     setPersons(persons.concat({ name: newName, num: number }));
     setNumber("");
   };
-
+  useEffect(() => {
+    axios.get("http://localhost:3001/persons").then((response) => {
+      console.log("promise fulfilled");
+      setPersons(response.data);
+    });
+  }, []);
+  console.log("render", persons.length, "persons");
   return (
     <div>
       <h2>PhoneBook</h2>
@@ -46,6 +52,7 @@ const PhoneBook = () => {
           type="text"
           value={number}
           onChange={(e) => setNumber(e.target.value)}
+          required
         />
         <br />
         <button>add</button>
