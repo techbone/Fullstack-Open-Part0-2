@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Filter from "./components/Filter.jsx";
 import Notes from "./services/Notes";
 import Delete from "./components/Delete";
+import Notification from "./components/Notification";
 const PhoneBook = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [number, setNumber] = useState("");
   const [searchBy, setSearchBy] = useState("");
+  const [success, setSuccess] = useState("");
   const handleChange = (e) => {
     setSearchBy(e.target.value);
   };
@@ -18,21 +20,30 @@ const PhoneBook = () => {
       <>
         {window.confirm("This name already exists,replace the old number?") ===
         true
-          ? Notes.update(finder[0].id, { name: newName, num: number }).then(
-              (value) => {
+          ? Notes.update(finder[0].id, { name: newName, num: number })
+              .then((value) => {
                 setPersons(
                   persons.map((person) =>
                     person.id !== finder[0].id ? person : value
                   )
                 );
-              }
-            )
+              })
+              .catch(() => {
+                setSuccess("name has already been deleted from the server");
+                setTimeout(() => {
+                  setSuccess("");
+                }, 3000);
+              })
           : ""}
       </>
     ) : (
-      Notes.create({ name: newName, num: number }).then((data) =>
-        setPersons(persons.concat(data))
-      )
+      Notes.create({ name: newName, num: number }).then((data) => {
+        setPersons(persons.concat(data));
+        setSuccess("added new name");
+        setTimeout(() => {
+          setSuccess("");
+        }, 3000);
+      })
     );
   };
 
@@ -42,13 +53,9 @@ const PhoneBook = () => {
   console.log("render", persons.length, "persons");
 
   const toggleDelete = (ids) => {
-    Notes.deletePerson(ids)
-      .then((returnedNote) => {
-        setPersons(persons.filter((note) => note.id !== ids));
-      })
-      .catch((error) => {
-        alert(`the note '${persons.content}' was already deleted from server`);
-      });
+    Notes.deletePerson(ids).then(() => {
+      setPersons(persons.filter((note) => note.id !== ids));
+    });
   };
 
   return (
@@ -56,7 +63,7 @@ const PhoneBook = () => {
       <h2>PhoneBook</h2>
 
       <Filter searchby={searchBy} handleChange={handleChange} />
-
+      <Notification message={success} />
       <form onSubmit={handleSubmit}>
         <h4>name:</h4>
         <input
@@ -91,7 +98,7 @@ const PhoneBook = () => {
                 </li>
               ))
           : persons.map((person, personIndex) => (
-              <li key={`person-${personIndex}`}>
+              <li className="person" key={`person-${personIndex}`}>
                 {person.name} {person.num}
                 <Delete toggleDelete={() => toggleDelete(person.id)} />
               </li>
