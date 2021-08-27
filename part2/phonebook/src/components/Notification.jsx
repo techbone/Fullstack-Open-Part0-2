@@ -1,21 +1,21 @@
 const Notification = ({ message }) => {
   const red = {
-    padding: "0.7rem",
-    borderTop: "2px solid lightgreen",
-    borderBottom: "2px solid lightgreen",
-    bacgroundColor: "grey",
     color: "red",
-    marginTop: "1rem",
-    fontSize: "1rem",
+    background: "lightgrey",
+    fontSize: 20,
+    borderRadius: 5,
+    borderStyle: "solid",
+    padding: 10,
+    marginBottom: 10,
   };
   const green = {
-    bacgroundColor: "grey",
-    padding: "0.7rem",
-    borderTop: "2px solid green",
-    borderBottom: "2px solid green",
     color: "green",
-    marginTop: "1rem",
-    fontSize: "1rem",
+    background: "lightgrey",
+    fontSize: 20,
+    borderRadius: 5,
+    borderStyle: "solid",
+    padding: 10,
+    marginBottom: 10,
   };
   if (!message) return null;
   return <div style={message.includes("added") ? green : red}>{message}</div>;

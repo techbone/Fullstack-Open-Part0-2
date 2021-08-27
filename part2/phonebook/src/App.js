@@ -61,24 +61,31 @@ const PhoneBook = () => {
   return (
     <div>
       <h2>PhoneBook</h2>
-
-      <Filter searchby={searchBy} handleChange={handleChange} />
       <Notification message={success} />
+      <Filter searchby={searchBy} handleChange={handleChange} />
+
       <form onSubmit={handleSubmit}>
-        <h4>name:</h4>
-        <input
-          type="text"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          required
-        />
+        <h2>add a name</h2>
+        <div>
+          name :
+          <input
+            type="text"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            required
+          />
+        </div>
+
         <br />
-        <input
-          type="text"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-          required
-        />
+        <div>
+          number :
+          <input
+            type="text"
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
+            required
+          />
+        </div>
         <br />
         <button>add</button>
         <br />
